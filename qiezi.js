@@ -1,6 +1,6 @@
 const qiezi = {
     d: [],
-    version: '20250306',
+    version: '20250307',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
