@@ -1,11 +1,59 @@
 const qiezi = {
     d: [],
-    version : '20250306',
+    version: '20250306',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
     shouye: () => {
         var d = qiezi.d;
+        if (getMyVar('abb', '') == '') {
+            var 更新间隔 = 1
+            let time = new Date().getTime().toString()
+
+            function countCrossedDays(date1, date2) {
+                var d1 = new Date(Number(date1));
+                var d2 = new Date(Number(date2));
+                // 获取完整日期部分
+                var start = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+                var end = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
+                // 判断开始和结束日期
+                var timeDifference = Math.abs(end - start);
+                // 计算跨越的天数
+                var crossedDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+                return crossedDays; // 返回跨越的天数
+            }
+            var 跨越天数 = countCrossedDays(time, getItem('time', new Date().getTime()))
+            //log(跨越天数)
+            if (跨越天数 >= 更新间隔) {
+                setItem('time', time);
+
+                function localversion() {
+                    try {
+                        eval(fetch('hiker://files/data/qiezi/qiezi.js'));
+                        return qiezi.version
+                    } catch {
+                        return 'underfind'
+                    }
+                }
+
+                function remoteversion() {
+                    try {
+                        eval(fetch(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://github.com/csdown/hiker_info/raw/refs/heads/main/qiezi.js'))
+                        return qiezi.version
+                    } catch {
+                        return 'underfind'
+                    }
+                }
+
+                if ((remoteversion() != 'underfind' && remoteversion() != localversion()) || localversion() == 'underfind') {
+                    showLoading('检测到新版本，更新中...')
+                    writeFile('hiker://files/data/qiezi/qiezi.js', fetch(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://github.com/csdown/hiker_info/raw/refs/heads/main/qiezi.js'));
+                    java.lang.Thread.sleep(2000);
+                    hideLoading()
+                    toast('更新完成！')
+                }
+            }
+        }
         if (MY_PAGE == 1) {
             d.push({   
                 title: "搜索 ",
