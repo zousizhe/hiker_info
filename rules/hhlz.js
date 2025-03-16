@@ -1,5 +1,6 @@
 const hhlz = {
     d: [],
+    version: '20250316',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
