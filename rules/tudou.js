@@ -15,34 +15,36 @@ const tudou = {
             return encrypted0.toInputStream();
         });
         try {
-
-            let movie_index_url = getItem('host') + '/api/movie/index';
-            let movie_cate = fetch(movie_index_url, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'api-token': getItem('token'),
-                    'api-type': 'WAP',
-                },
-                body: 'page=1',
-                method: 'POST'
-            })
-            let movie_cate_data = JSON.parse(movie_cate).data.cates;
-            let movie_cate_data_n = movie_cate_data[0].id + '';
-
-            function strong(d, c) {
-                return '‘‘’’<strong><font color=#' + (c || '000000') + '>' + d + '</font></strong>';
-            }
-            movie_cate_data.forEach(data => {
-                d.push({
-                    title: (getMyVar('movie_cate', movie_cate_data_n) == data.id ? strong(data.name, 'FF6699') : data.name),
-                    url: $('#noLoading#').lazyRule((n, title, id) => {
-                        putMyVar(n, id);
-                        refreshPage(false);
-                        return 'hiker://empty';
-                    }, 'movie_cate', data.name, data.id + ''),
-                    col_type: 'scroll_button',
+            if (MY_PAGE == 1) {
+                let movie_index_url = getItem('host') + '/api/movie/index';
+                let movie_cate = fetch(movie_index_url, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'api-token': getItem('token'),
+                        'api-type': 'WAP',
+                    },
+                    body: 'page=1',
+                    method: 'POST'
                 })
-            })
+                let movie_cate_data = JSON.parse(movie_cate).data.cates;
+                let movie_cate_data_n = movie_cate_data[0].id + '';
+                putMyVar('movie_cate_data_n',movie_cate_data_n);
+
+                function strong(d, c) {
+                    return '‘‘’’<strong><font color=#' + (c || '000000') + '>' + d + '</font></strong>';
+                }
+                movie_cate_data.forEach(data => {
+                    d.push({
+                        title: (getMyVar('movie_cate', getMyVar('movie_cate_data_n')) == data.id ? strong(data.name, 'FF6699') : data.name),
+                        url: $('#noLoading#').lazyRule((n, title, id) => {
+                            putMyVar(n, id);
+                            refreshPage(false);
+                            return 'hiker://empty';
+                        }, 'movie_cate', data.name, data.id + ''),
+                        col_type: 'scroll_button',
+                    })
+                })
+            }
             let movie_list_url = getItem('host') + '/api/movie/list';
             let movie_list = JSON.parse(fetch(movie_list_url, {
                 headers: {
@@ -50,7 +52,7 @@ const tudou = {
                     'api-token': getItem('token'),
                     'api-type': 'WAP',
                 },
-                body: 'page=' + pg + '&style=0&cates=' + getMyVar('movie_cate', movie_cate_data_n),
+                body: 'page=' + pg + '&style=0&cates=' + getMyVar('movie_cate', getMyVar('movie_cate_data_n')),
                 method: 'POST'
             })).data.list;
             movie_list.forEach(data => {
@@ -71,7 +73,7 @@ const tudou = {
                         desc: data.duration,
                         img: data.cover_url + image,
                         url: getMyVar('vod_host') + data.src,
-                        col_type:'movie_2',
+                        col_type: 'movie_2',
                     })
                 })
             })
