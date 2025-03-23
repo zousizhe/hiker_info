@@ -1,4 +1,3 @@
-js:
 const tudou = {
     d: [],
     rely: (data) => {
