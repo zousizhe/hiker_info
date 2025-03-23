@@ -1,5 +1,6 @@
 const tudou = {
     d: [],
+    vervion: '20250323',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
