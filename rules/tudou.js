@@ -1,6 +1,6 @@
 const tudou = {
     d: [],
-    version: '20250324',
+    version: '202503242',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -39,15 +39,15 @@ const tudou = {
         }
         var 分类 = getMyVar('c1', '1');
         if (分类 == 1) {
-            $.require('tudou').video()
+            tudou.video()
         } else if (分类 == 2) {
-            $.require('tudou').zonglan()
+            tudou.zonglan()
         } else if (分类 == 3) {
-            $.require('tudou').mini()
+            tudou.mini()
         } else if (分类 == 4) {
-            $.require('tudou').nvyou()
+            tudou.nvyou()
         } else if (分类 == 5) {
-            $.require('tudou').news()
+            tudou.news()
         }
         setResult(d)
     },
