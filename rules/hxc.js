@@ -1,11 +1,21 @@
 const hxc = {
     d: [],
-    version: '20250325',
+    version: '20250326',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
     home: () => {
         var d = hxc.d;
+        if (getItem('up' + hxc.version, '') == '') {
+            confirm({
+                title: '更新内容',
+                content: '版本号：' + hxc.version + '\n添加搜索',
+                confirm: $.toString((version) => {
+                    setItem('up' + version, '1')
+                }, hxc.version),
+                cancel: $.toString(() => {})
+            })
+        }
         if (MY_PAGE == 1) {
             d.push({   
                 title: "搜索 ",
@@ -214,11 +224,58 @@ const hxc = {
         var d = hxc.d;
         var pg = getParam('page');
         eval(hxc.rely(hxc.aes))
-        d.push({
-            title: '暂时没写',
-            url: 'hiker://empty',
-            col_type: 'text_center_1',
-        })
+
+        try {
+            if (MY_PAGE == 1) {
+                var 搜索 = [{
+                    title: '视频&合集&短视频',
+                    id: '1&2&3'
+                }]
+                d.push({   
+                    title: "搜索 ",
+                    url: $.toString(() => {
+                        putMyVar('keyword', input)
+                        refreshPage(false)
+                        return "hiker://empty"
+                    }),
+                       desc: "请输入搜索关键词",
+                       col_type: "input",
+                    extra: {
+                        defaultValue: getMyVar('keyword', ''),
+                        pageTitle: '搜索结果'
+                    }
+                })
+                Cate(搜索, '搜索', d);
+            }
+            let getlist_url = getItem('host') + '/base/globalSearch';
+            let getlist_body = '{"key":"' + getMyVar('keyword') + '","length":20,"page":' + pg + ',"type":' + getMyVar('搜索', '1') + '}';
+            let list = post(getlist_url, getlist_body).data.infos;
+            if (getMyVar('搜索', '1') == 2) {
+                list.forEach(data => {
+                    d.push({
+                        title: data.name,
+                        img: data.coverImgUrl + lazy,
+                        url: 'hiker://empty@rule=js:$.require("hejierji")',
+                        col_type: 'movie_2',
+                        extra: {
+                            id: data.gatherId
+                        }
+                    })
+                })
+            } else {
+                list.forEach(data => {
+                    d.push({
+                        title: data.name,
+                        desc: data.addTime + '      ' + parseInt(data.length / 60) + ':' + parseInt(data.length % 60),
+                        img: data.coverImgUrl + lazy,
+                        url: data.id + vod,
+                        col_type: 'movie_2',
+                    })
+                })
+            }
+        } catch (e) {
+            log(e.mmessage)
+        }
         setResult(d)
     },
     subject: () => {
