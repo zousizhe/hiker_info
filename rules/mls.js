@@ -1,6 +1,6 @@
 const mls = {
     d: [],
-    version: '20250328',
+    version: '202503282',
     author: '流苏',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
