@@ -253,11 +253,14 @@ const mls = {
             eval($.require('mls').rely($.require('mls').aes))
             let url = getItem('host') + '/api/video/getVideoById?videoId=' + input;
             let data = JSON.parse(post(url));
-            let authkey = fetch('https://vpn4.lovebabyforever.workers.dev', {
-                timeout: 2500,
-            })
-            if (authkey) {
-                let url1 = getItem('host') + '/api/m3u8/decode/authPath?auth_key=' + authkey.replace(/\"/g, '') + '&path=' + data.videoUrl;
+            if (getMyVar('authkey') == '') {
+                let authkey = fetch('https://vpn4.lovebabyforever.workers.dev', {
+                    timeout: 2500,
+                })
+                putMyVar('authkey', authkey)
+            }
+            if (getMyVar('authkey')) {
+                let url1 = getItem('host') + '/api/m3u8/decode/authPath?auth_key=' + getMyVar('authkey').replace(/\"/g, '') + '&path=' + data.videoUrl;
                 //let url1 = getItem('host') + '/api/m3u8/decode/authPath?auth_key=' + data.authKey + '&path=' + data.videoUrl;
                 return url1
             } else {
