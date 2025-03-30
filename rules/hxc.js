@@ -1,6 +1,7 @@
 const hxc = {
     d: [],
-    version: '20250326',
+    author: '流苏',
+    version: '20250330',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -9,7 +10,7 @@ const hxc = {
         if (getItem('up' + hxc.version, '') == '') {
             confirm({
                 title: '更新内容',
-                content: '版本号：' + hxc.version + '\n添加搜索',
+                content: '版本号：' + hxc.version + '\n1.添加搜索\n2.添加女优\n没问题不会再更新',
                 confirm: $.toString((version) => {
                     setItem('up' + version, '1')
                 }, hxc.version),
@@ -378,14 +379,49 @@ const hxc = {
     actor: () => {
         var d = hxc.d;
         var pg = getParam('page');
-        d.push({
-            title: '暂时没写',
-            url: 'hiker://empty',
-            col_type: 'text_center_1',
-        })
+        eval(hxc.rely(hxc.aes))
+        try {
+            let actor_url = getItem('host') + '/user/getUpList';
+            let actor_body = '{"filterIds":[],"groupIds":[1],"isManualBack":0,"length":20,"page":' + pg + ',"uids":[]}';
+            let list = post(actor_url, actor_body).data.list;
+            list.forEach(data => {
+                d.push({
+                    title: data.user_nicename,
+                    desc: data.signature,
+                    img: data.avatar + lazy,
+                    url: 'hiker://empty?page=fypage@rule=js:$.require("hxc").actorerji()',
+                    col_type: 'card_pic_3_center',
+                    extra: {
+                        id: data.id
+                    }
+                })
+            })
+        } catch (e) {
+            log(e.message)
+        }
     },
     actorerji: () => {
-
+        var d = hxc.d;
+        var pg = getParam('page');
+        var id = MY_PARAMS.id;
+        eval(hxc.rely(hxc.aes))
+        try {
+            let getlist_url = getItem('host') + '/user/getSpaceVideo';
+            let getlist_body = '{"length":20,"orderType":1,"page":' + pg + ',"touid":' + id + ',"videoSort":1}';
+            let list = post(getlist_url, getlist_body).data.list;
+            list.forEach(data => {
+                d.push({
+                    title: data.name,
+                    desc: data.addTime + '      ' + parseInt(data.length / 60) + ':' + parseInt(data.length % 60),
+                    img: data.coverImgUrl + lazy,
+                    url: data.id + vod,
+                    col_type: 'movie_2',
+                })
+            })
+        } catch (e) {
+            log(e.message)
+        }
+        setResult(d)
     },
     mini: () => {
         var d = hxc.d;
