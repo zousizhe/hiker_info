@@ -50,16 +50,16 @@ const csdown = {
                                 title: '更新数据',
                                 js: $.toString(() => {
                                     eval($.require('csdown').rely($.require('csdown').aes));
-                                    let shouye = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=csdown/shouye'));
-                                    let data = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=csdown/zonghe'));
+                                    let shouye = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/shouye'));
+                                    let data = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/zonghe'));
                                     let search = fetch('http://003.22s.lol/searchconfig/vipapi/vipconfig.txt');
-                                    // var kuozhan=qzDecrypt(request('http://004.22s.lol/encrypt/api.php?path=csdown/heikeji'));
+                                    // var kuozhan=qzDecrypt(request('http://004.22s.lol/encrypt/api.php?path=qiezi/heikeji'));
                                     // var yuming=qzDecrypt(request('http://01.xka3a.top/encrypt/api.php?path=yuming/yuming'));
-                                    //  var gonggao=qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=csdown/qz'));
+                                    //  var gonggao=qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/qz'));
                                     let avbk = fetch('https://app.caoppht.com/avbk132.php');
                                     //茄子数据
-                                    //http://api.xka1.top/csdown/shouye.txt
-                                    //http://api.xka1.top/csdown/zonghe.txt
+                                    //http://api.xka1.top/qiezi/shouye.txt
+                                    //http://api.xka1.top/qiezi/zonghe.txt
                                     //小可爱数据
                                     //http://api.xka1.top/xiaokeai/shouye.txt
                                     //http://api.xka1.top/xiaokeai/zonghe.txt
@@ -358,12 +358,12 @@ const csdown = {
             log(e.message)
             if (getMyVar('a') == '') {
                 const host = 'https://api1.yilushunfeng.top';
-                const shouye = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=csdown/shouye'))
-                const data = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=csdown/zonghe'))
+                const shouye = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/shouye'))
+                const data = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/zonghe'))
                 const search = fetch('http://003.22s.lol/searchconfig/vipapi/vipconfig.txt')
-                // var kuozhan=qzDecrypt(request('http://004.22s.lol/encrypt/api.php?path=csdown/heikeji'))
+                // var kuozhan=qzDecrypt(request('http://004.22s.lol/encrypt/api.php?path=qiezi/heikeji'))
                 // var yuming=qzDecrypt(request('http://01.xka3a.top/encrypt/api.php?path=yuming/yuming'))
-                //  var gonggao=qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=csdown/qz'))
+                //  var gonggao=qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/qz'))
                 const avbk = fetch('https://app.caoppht.com/avbk132.php');
                 putMyVar('a', '1');
                 setItem('host', host);
