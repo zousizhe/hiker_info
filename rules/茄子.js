@@ -7,6 +7,16 @@ const csdown = {
     },
     home: () => {
         var d = csdown.d;
+        if (getItem('up' + csdown.version, '') == '') {
+            confirm({
+                title: '更新内容',
+                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.搜索界面增加搜索框\n4.增加av百科\n5.综合部分二级页面修改\n6.看不了的是服务器问题，与我无关\n7.待续',
+                confirm: $.toString((version) => {
+                    setItem('up' + version, '1')
+                }, csdown.version),
+                cancel: $.toString(() => {})
+            })
+        }
         if (MY_PAGE == 1) {
             d.push({   
                 title: "搜索 ",
