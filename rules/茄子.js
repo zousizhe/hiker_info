@@ -1,7 +1,7 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '20250331',
+    version: '20250401',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -10,7 +10,7 @@ const csdown = {
         if (getItem('up' + csdown.version, '') == '') {
             confirm({
                 title: '更新内容',
-                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.待续',
+                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.待续',
                 confirm: $.toString((version) => {
                     setItem('up' + version, '1')
                 }, csdown.version),
@@ -1734,7 +1734,7 @@ const csdown = {
                 })
             } else if (wz == 'gtl') {
                 var videos = data.video.replace(/\$/g, '').split('@');
-                var img = data.picCode.match(/src\=\".*?\".*?alt/)[0].split('"')[1];
+                var img = data.imgcode.match(/src\=\".*?\".*?alt/)[0].split('"')[1];
                 videos.forEach((item, index) => {
                     var n = index + 1;
                     if (item) {
@@ -1748,7 +1748,7 @@ const csdown = {
                     }
                 })
                 d.push({
-                    title: data.picCode,
+                    title: data.imgcode,
                     col_type: 'rich_text',
                 })
             } else if (wz == 'tiktok18') {
