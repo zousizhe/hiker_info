@@ -1,6 +1,6 @@
 const mls = {
     d: [],
-    version: '202503282',
+    version: '20250402',
     author: '流苏',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
@@ -9,10 +9,20 @@ const mls = {
         var d = mls.d;
         var pg = MY_URL.replace('hiker://empty##', '');
         eval(mls.rely(mls.aes))
+        if (getItem('up' + mls.version, '') == '') {
+            confirm({
+                title: '更新内容',
+                content: '版本号：' + mls.version + '\n1.修正部分参数获取方式\n2.修复部分bug',
+                confirm: $.toString((version) => {
+                    setItem('up' + version, '1')
+                }, mls.version),
+                cancel: $.toString(() => {})
+            })
+        }
         try {
             var 视频 = [{
-                title: '推荐&最新&原创自制&免费&UP主原创区&热门福利姬&诱惑小萝莉&网络热门专区&cosplay&乱伦偷情&伪娘百合同性&欧美少女&日韩',
-                id: '1&32&34&43&18&2&4&15&3&27&24&14&20&38'
+                title: '推荐&最新&原创自制&免费&热门福利姬&诱惑小萝莉&网络热门专区&cosplay&乱伦偷情&伪娘百合同性&欧美少女&日韩',
+                id: '1&32&34&43&2&4&15&3&27&24&14&20&38'
             }];
 
             if (MY_PAGE == 1) {
@@ -145,9 +155,29 @@ const mls = {
         } catch (e) {
             log(e.message)
             if (getMyVar('a') == '') {
-                var host = 'https://api.axlywszrnr.work';
+                let host = 'https://jhfkdnov21vfd.cosnjnmaea.shop';
                 putMyVar('a', '1')
                 setItem('host', host)
+                let token_url = getItem('host') + '/api/user/traveler';
+                let token_data = JSON.parse(fetch(token_url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        't': t,
+                        's': s,
+                        'deviceId': deviceId,
+                        'User-Agent': 'Mozilla/5.0 (Linux; Android 14; 22081212C Build/UKQ1.230917.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/118.0.0.0 Mobile Safari/537.36;SuiRui/mh/ver=1.7.8'
+                    },
+                    body: {
+                        "deviceId": deviceId,
+                        "dew": "K",
+                        "code": ""
+                    },
+                    method: 'POST'
+                }));
+                let token = token_data.data.token;
+                let imgDomain = token_data.data.imgDomain;
+                setItem('token', token);
+                setItem('imgDomain', imgDomain);
                 refreshPage()
                 toast('域名已更新')
             }
@@ -231,16 +261,16 @@ const mls = {
 
         // 调用方法生成随机字符串
         var deviceId = generateRandomHex(32);
-        //var aut=base64Encode('{"sub":"30269226","iss":"","iat":'+t0+',"nbf":'+t0+',"exp":1894520154}').toString();
+
         function post(url) {
             var html = fetch(url, {
                 headers: {
-                    'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDI3MTQ2MyIsImlzcyI6IiIsImlhdCI6MTczNjg1MDM1MiwibmJmIjoxNzM2ODUwMzUyLCJleHAiOjE4OTQ1MzAzNTJ9.M-C10JgyMvS2hPuHDtoWFl-8Wx9tgafOhnE41nOj7z8',
+                    'Authorization': getItem('token'),
                     'Content-Type': 'application/json',
                     't': t,
                     's': s,
                     'deviceId': deviceId,
-                    'User-Agent': 'Mozilla/5.0 (Linux; Android 15; 24031PN0DC Build/AQ3A.240627.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/130.0.6723.86 Mobile Safari/537.36;SuiRui/mh/ver=1.6.1'
+                    'User-Agent': 'Mozilla/5.0 (Linux; Android 14; 22081212C Build/UKQ1.230917.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/118.0.0.0 Mobile Safari/537.36;SuiRui/mh/ver=1.7.8'
                 },
                 method: 'GET'
             });
