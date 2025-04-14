@@ -267,7 +267,7 @@ const csdown = {
                 for (item of data.images) {
                     var picUrl = getItem('img_host') + '/media/photos/' + input + '/' + item;
                     let decode = $('').image((picUrl) => {
-                        return $.require("csdown?rule=" + MY_TITLE).decodeimg(picUrl, input);
+                        return $.require("csdown?rule=" + MY_RULE.title).decodeimg(picUrl, input);
                     }, picUrl);
                     img.push(picUrl + decode)
                 }
