@@ -530,7 +530,7 @@ const csdown = {
                             return "pics://" + img.join("&&")
                         }, getItem('host'), getItem('img_host')),
                         decode: $.toString((title) => {
-                            $.require("deimg?rule=" + title)(picUrl, input);
+                            return $.require("deimg?rule=" + title)(url, input);
                         }, MY_RULE.title),
                     },
                     defaultView: "1"
