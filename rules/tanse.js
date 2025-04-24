@@ -1,4 +1,4 @@
 const tanse = {
-    version: 202503102,
-    update: "云6oooole/xxxxxx/rsresa48rxvnjfqv"
+    version: 20250424,
+    update: "云6oooole/xxxxxx/c0sjmrleiedq1bz6"
 }
