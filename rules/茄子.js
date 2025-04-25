@@ -1,7 +1,7 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '20250401',
+    version: '20250425',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -10,7 +10,7 @@ const csdown = {
         if (getItem('up' + csdown.version, '') == '') {
             confirm({
                 title: '更新内容',
-                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.待续',
+                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.待续',
                 confirm: $.toString((version) => {
                     setItem('up' + version, '1')
                 }, csdown.version),
@@ -88,8 +88,8 @@ const csdown = {
                             }, {
                                 title: '更换线路',
                                 js: $.toString(() => {
-                                    var url = 'https://api1.yilushunfeng.top|https://api.changfapiaopiao.top|http://api1.yilushunfeng.top|http://api.changfapiaopiao.top|http://api1.apijiekou.top/api|http://api.phpjiekou.top|http://004.22s.lol/api'.split('|');
-                                    var option = '线路1(推荐)&线路2&线路3&线路4&线路5&线路6&线路7'.split('&')
+                                    var url = 'https://api1.yilushunfeng.top|https://api.changfapiaopiao.top|http://api1.yilushunfeng.top|http://api.changfapiaopiao.top|http://api1.apijiekou.top/api|http://api.phpjiekou.top|http://004.22s.lol/api|http://003.22s.lol/api|http://007.22s.lol/api'.split('|');
+                                    var option = '线路1&线路2&线路3&线路4&线路5&线路6&线路7&线路8&线路9'.split('&')
                                     var Line = {
                                         title: '切换线路',
                                         options: option,
@@ -367,7 +367,7 @@ const csdown = {
         } catch (e) {
             log(e.message)
             if (getMyVar('a') == '') {
-                const host = 'https://api1.yilushunfeng.top';
+                const host = 'http://007.22s.lol/api';
                 const shouye = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/shouye'))
                 const data = qzDecrypt(request('http://003.22s.lol/encrypt/api.php?path=qiezi/zonghe'))
                 const search = fetch('http://003.22s.lol/searchconfig/vipapi/vipconfig.txt')
@@ -661,7 +661,7 @@ const csdown = {
                 var Brr = ['lutube'];
                 var Crr = ['ins'];
                 var Drr = ['souavsp'];
-                var platform = host.match(/top\/.*\.php/)[0].split('.php')[0].split('/')[2];
+                var platform = host.match(/top|api\/.*\.php/)[0].split('.php')[0].split('/')[2];
                 //log(platform)
                 var item = JSON.parse(fetch(search_url)).videos;
                 item.forEach(data => {
@@ -1343,7 +1343,7 @@ const csdown = {
         } //长按跳页
     }),
     syvideo: () => {
-        js: var d = csdown.d;
+        var d = csdown.d;
         eval(csdown.rely(csdown.aes))
         try {
             let host = MY_PARAMS.host;
