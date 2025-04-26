@@ -59,6 +59,7 @@ const csdown = {
           // default:
         }
         */
+        if (MY_RULE.author == csdown.author) {
         if (分类 == 1) {
             csdown.video()
         } else if (分类 == 2) {
@@ -69,6 +70,13 @@ const csdown = {
             csdown.wei()
         } else if (分类 == 5) {
             csdown.vodlei()
+        }
+        } else {
+            d.push({
+                title: '请勿修改作者名称',
+                url: 'hiker://empty',
+                col_type: 'text_center_1',
+            })
         }
         setResult(d)
     },
