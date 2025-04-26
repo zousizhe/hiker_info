@@ -1,7 +1,7 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '202504252',
+    version: '20250426',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -118,10 +118,18 @@ const csdown = {
         }
         //setPreResult(d)
         var 分类 = getMyVar('首页', '1');
-        if (分类 == 1) {
-            csdown.video()
-        } else if (分类 == 2) {
-            csdown.zonghe()
+        if (MY_RULE.author == csdown.author) {
+            if (分类 == 1) {
+                csdown.video()
+            } else if (分类 == 2) {
+                csdown.zonghe()
+            }
+        } else {
+            d.push({
+                title: '请勿修改作者名称',
+                url: 'hiker://empty',
+                col_type: 'text_center_1',
+            })
         }
         setResult(d)
     },
