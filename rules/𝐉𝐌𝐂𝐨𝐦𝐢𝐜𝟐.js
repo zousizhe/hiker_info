@@ -1,7 +1,7 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '20250414',
+    version: '202504141',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -76,12 +76,20 @@ const csdown = {
             });
         }
         var 分类 = getMyVar('首页', '1');
-        if (分类 == 1) {
-            csdown.main()
-        } else if (分类 == 2) {
-            csdown.cate()
-        } else if (分类 == 3) {
-            csdown.week()
+        if (MY_RULE.author == csdown.author) {
+            if (分类 == 1) {
+                csdown.main()
+            } else if (分类 == 2) {
+                csdown.cate()
+            } else if (分类 == 3) {
+                csdown.week()
+            }
+        } else {
+            d.push({
+                title: '请勿修改作者名称',
+                url: 'hiker://empty',
+                col_type: 'text_center_1',
+            })
         }
         setResult(d)
     },
