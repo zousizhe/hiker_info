@@ -1,7 +1,7 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '20250426',
+    version: '20250427',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -10,7 +10,7 @@ const csdown = {
         if (getItem('up' + csdown.version, '') == '') {
             confirm({
                 title: '更新内容',
-                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复(大概)，看不了的更换线路试试\n13.待续',
+                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复，自行更换为线路1\n13.修改漫画二级页面\n14.待续',
                 confirm: $.toString((version) => {
                     setItem('up' + version, '1')
                 }, csdown.version),
@@ -2270,11 +2270,13 @@ const csdown = {
                     title: data.title,
                     desc: data.date,
                     img: data.image,
-                    url: 'hiker://empty@rule=js:$.require("csdown").manhuaerji1()',
+                    url: 'hiker://empty?#immersiveTheme#@rule=js:$.require("csdown").manhuaerji1()',
                     col_type: 'movie_3',
                     extra: {
                         host: `${host}?id=${data.id}`,
                         wz: wz,
+                        image: data.image,
+                        title: data.title,
                     }
                 })
             })
@@ -2290,10 +2292,27 @@ const csdown = {
         let host = MY_PARAMS.host;
         let url = host.split('?')[0];
         var wz = MY_PARAMS.wz;
+        let img = MY_PARAMS.image;
+        let title = MY_PARAMS.title;
         try {
-            let list = JSON.parse(fetch(host)).chapters;
+            let list = JSON.parse(fetch(host));
+            var chapters = list.chapters;
             //log(list)
-            list.forEach(data => {
+            d.push({
+                title: title,
+                url: img,
+                img: img,
+                col_type: 'movie_1_vertical_pic_blur',
+            })
+            d.push({
+                title: (getVar('shsort') == '1') ? '““””<b><span style="color: #FF0000">当前排序：逆序</span></b>' : '““””<b><span style="color: #1aad19">当前排序：正序</span></b>',
+                url: `#noLoading#@lazyRule=.js:let conf = getVar('shsort');if(conf=='1'){putVar({key:'shsort', value:'0'});}else{putVar({key:'shsort', value:'1'})};refreshPage(false);'toast://切换排序成功'`,
+                col_type: 'text_center_1',
+            })
+            if (getVar('shsort') == '1') {
+                chapters = chapters.reverse();
+            }
+            chapters.forEach(data => {
                 d.push({
                     title: data.title,
                     url: url + '?id=' + data.id + pics,
