@@ -118,7 +118,7 @@ const csdown = {
         }
         //setPreResult(d)
         var 分类 = getMyVar('首页', '1');
-        if (MY_RULE.author == csdown.author) {
+        if (MY_RULE.author == csdown.author || MY_NAME == '嗅觉浏览器') {
             if (分类 == 1) {
                 csdown.video()
             } else if (分类 == 2) {
