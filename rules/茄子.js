@@ -1,7 +1,7 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '20250427',
+    version: '20250504',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -10,7 +10,7 @@ const csdown = {
         if (getItem('up' + csdown.version, '') == '') {
             confirm({
                 title: '更新内容',
-                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复，自行更换为线路1\n13.修改漫画二级页面\n14.待续',
+                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复，自行更换为线路1\n13.修改漫画二级页面\n14.修复猫咪系列模块无法打开的问题\n15.百科增加模块，自行长按更新数据\n16.待续',
                 confirm: $.toString((version) => {
                     setItem('up' + version, '1')
                 }, csdown.version),
@@ -1114,7 +1114,7 @@ const csdown = {
         var maomimanhuajx = $('').lazyRule(() => {
             eval($.require('csdown').rely($.require('csdown').aes));
             var sign = Encrypt('{"user_id":1790368,"list_id":' + input + '}');
-            var host = 'http://119.28.52.193:8089/api/comic/watch?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/comic/watch?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
@@ -1136,7 +1136,7 @@ const csdown = {
         var maomifmjx = $('').lazyRule(() => {
             eval($.require('csdown').rely($.require('csdown').aes));
             var sign = Encrypt('{"id":' + input + '}');
-            var host = 'http://119.28.52.193:8089/api/book/detail?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/book/detail?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
@@ -1153,7 +1153,7 @@ const csdown = {
         var maomijx = $('').lazyRule(() => {
             eval($.require('csdown').rely($.require('csdown').aes));
             var sign = Encrypt('{"id":' + input + '}');
-            var host = 'http://119.28.52.193:8089/api/video/detail?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/video/detail?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
@@ -1488,7 +1488,7 @@ const csdown = {
             Cate(猫咪FM, '猫咪FM', d);
         }
         var sign = Encrypt('{"page":' + pg + ',"cate_id":' + getMyVar('猫咪FM', '8') + ',"status":0,"type":0,"new":0}');
-        var host = 'http://119.28.52.193:8089/api/book/index?params=' + sign;
+        var host = 'http://43.154.96.251:8089/api/book/index?params=' + sign;
         var body = 'params=' + sign;
         var html = fetch(host, {
             headers: {
@@ -2323,10 +2323,10 @@ const csdown = {
             d.push({
                 title: ('““””预览漫画' + (preview == "0" ? "[关]".fontcolor("red") : "[开]".fontcolor("green"))).small(),
                 col_type: 'text_center_1',
-                url: $('').lazyRule(() => {
+                url: $('#noLoading#').lazyRule(() => {
                     var i = getItem('preview', "0");
                     setItem('preview', i == "0" ? "1" : "0");
-                    refreshPage();
+                    refreshPage(false);
                     return 'hiker://empty'
                 }),
                 extra: {
@@ -2702,7 +2702,7 @@ const csdown = {
         }
         var sign = Encrypt('{"special_id":' + getMyVar('猫咪', '10') + ',"page":' + pg + '}');
         try {
-            var host = 'http://119.28.52.193:8089/api/special/video?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/special/video?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
@@ -2738,7 +2738,7 @@ const csdown = {
         }
         var sign = Encrypt('{"user_id":1790368,"type":' + getMyVar('猫咪原创', '3') + ',"page":' + pg + '}');
         try {
-            var host = 'http://119.28.52.193:8089/api/original/index?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/original/index?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
@@ -2782,7 +2782,7 @@ const csdown = {
                 Cate(猫咪漫画, '猫咪漫画', d);
             }
             var sign = Encrypt('{"page":' + pg + '}');
-            var host = 'http://119.28.52.193:8089/api/comic/' + getMyVar('猫咪漫画', 'recommend') + '?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/comic/' + getMyVar('猫咪漫画', 'recommend') + '?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
@@ -2819,7 +2819,7 @@ const csdown = {
         var id = MY_PARAMS.id;
         try {
             var sign = Encrypt('{"id":' + id + ',"page":' + pg + ',"sort":0}');
-            var host = 'http://119.28.52.193:8089/api/comic/lists?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/comic/lists?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
@@ -2853,7 +2853,7 @@ const csdown = {
                 Cate(猫咪美图, '猫咪美图', d);
             }
             var sign = Encrypt('{"page":' + pg + ',"cate":' + getMyVar('猫咪美图', '0') + ',"type":1}');
-            var host = 'http://119.28.52.193:8089/api/v2/post/home?params=' + sign;
+            var host = 'http://43.154.96.251:8089/api/v2/post/home?params=' + sign;
             var body = 'params=' + sign;
             var html = fetch(host, {
                 headers: {
