@@ -1,7 +1,7 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '20250504',
+    version: '202505012',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -10,7 +10,7 @@ const csdown = {
         if (getItem('up' + csdown.version, '') == '') {
             confirm({
                 title: '更新内容',
-                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复，自行更换为线路1\n13.修改漫画二级页面\n14.修复猫咪系列模块无法打开的问题\n15.百科增加模块，自行长按更新数据\n16.待续',
+                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复，自行更换为线路1\n13.修改漫画二级页面\n14.修复猫咪系列模块无法打开的问题\n15.百科增加模块，自行长按更新数据\n16.修复蘑菇视频播放(最好挂代理)\n17.修复搜索中部分模块图片不显示的问题\n18.待续',
                 confirm: $.toString((version) => {
                     setItem('up' + version, '1')
                 }, csdown.version),
@@ -669,7 +669,7 @@ const csdown = {
                 var Brr = ['lutube'];
                 var Crr = ['ins'];
                 var Drr = ['souavsp'];
-                var platform = host.match(/top|api\/.*\.php/)[0].split('.php')[0].split('/')[2];
+                var platform = host.match(/top\/.*\.php/)[0].split('/')[2];
                 //log(platform)
                 var item = JSON.parse(fetch(search_url)).videos;
                 item.forEach(data => {
@@ -757,7 +757,7 @@ const csdown = {
                     }
                 })
             } else if (getMyVar('搜索分类名', '视频') == '全网破解') {
-                var Arr = ['ttt', 'loanword', 'loanword_2', '91short', 'sepone', 'lusir', 'cape', 'degree', 'burma', 'novelty', 'intimate', 'confidential', 'park'];
+                var Arr = ['ttt', 'loanword', 'loanword_2', '91short', 'sepone', 'lusir', 'cape', 'degree', 'burma', 'novelty', 'intimate', 'park'];
                 var platform = host.match(/top\/.*\.php/)[0].split('.php')[0].split('/')[4];
                 var item = JSON.parse(fetch(search_url)).videos;
                 // log(item)
@@ -1456,6 +1456,30 @@ const csdown = {
                         }, host, data.id),
                         col_type: 'movie_2'
                     })
+                } else if (wz == 'mogu') {
+                    if (data.image) {
+                        var img = data.image;
+                        d.push({
+                            title: data.title,
+                            desc: (data.created_date == null ? '' : data.created_date) + '  ' + (data.date == null ? '' : data.date) + '  ' + (data.duration == null ? '' : data.duration),
+                            img: (img.includes('upload') || img.includes('new.')) ? (data.image + lazy) : data.image,
+                            url: $('').lazyRule((host, id) => {
+                                var url = host + '?id=' + id;
+                                try {
+                                    var url0 = JSON.parse(fetch(url)).video;
+                                    if (!url0.includes('plist.m3u8')) {
+                                        let url1 = url0.split('.m3u8')[0].replace('.plist', '.plist.m3u8')
+                                        return url1;
+                                    } else {
+                                        return url0 + `#isVideo=true#`;
+                                    }
+                                } catch (e) {
+                                    log(e.toString())
+                                }
+                            }, host, data.id),
+                            col_type: 'movie_2'
+                        })
+                    }
                 } else {
                     if (data.image) {
                         var img = data.image;
@@ -1972,7 +1996,7 @@ const csdown = {
                     desc: data.number,
                     img: data.image,
                     url: 'hiker://empty?page=fypage@rule=js:$.require("csdown").nvyouerji1()',
-                    col_type: 'card_pic_3',
+                    col_type: 'card_pic_3_center',
                     extra: {
                         host: `${host}?sort=${data.id}&page=`,
                         wz: wz,
@@ -2096,7 +2120,7 @@ const csdown = {
                         title: data.title,
                         img: data.image,
                         url: 'hiker://empty?@rule=js:$.require("csdown").zhiboerji1()',
-                        col_type: 'card_pic_3',
+                        col_type: 'card_pic_3_center',
                         extra: {
                             host: `${host}?pingtai=${data.id}`,
                             wz: wz,
@@ -2694,8 +2718,8 @@ const csdown = {
         eval(csdown.rely(csdown.aes));
         var pg = getParam('page');
         var 猫咪 = [{
-            title: '猫咪原创&AI制作&不雅视频&亚洲无 码&抖音妹集合&热剧成人版&韩国三级&人气女 优',
-            id: '10&16&5&9&11&12&13&6'
+            title: '猫咪原创&不雅视频&亚洲无 码&抖音妹集合&热剧成人版&韩国三级&人气女 优&国产专区&中文字幕&欧美精品&成人动漫&精品推荐',
+            id: '10&5&9&11&12&13&6&3&8&7&1&15'
         }];
         if (MY_PAGE == 1) {
             Cate(猫咪, '猫咪', d);
@@ -3020,7 +3044,7 @@ const csdown = {
                         desc: data.Number,
                         img: data.xinimg,
                         url: 'hiker://empty@rule=js:$.require("csdown").zhibojuheerji1()',
-                        col_type: 'card_pic_3',
+                        col_type: 'card_pic_3_center',
                         extra: {
                             host: `${host}${data.address}`,
                             wz: wz,
