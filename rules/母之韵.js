@@ -1,12 +1,14 @@
 const csdown = {
     d: [],
     author: '流苏&Timik',
-    version: '20250511',
+    version: '20250513',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
     home: () => {
         //地址:https://douyin116.xyz/
+        //主uid=6299321
+        //备用uid=6299614
         var d = csdown.d;
         if (MY_PAGE == 1) {
             d.push({   
@@ -273,7 +275,7 @@ const csdown = {
                     title: data.title,
                     desc: timestampToTime(data.created_at, 1) + '\t\t\t' + parseInt(data.video_length / 60) + ':' + parseInt(data.video_length % 60),
                     img: data.horizontal_cover + image,
-                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=1',
+                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=6299321',
                     col_type: 'movie_2',
                     extra: {
                         id: data.id,
@@ -328,7 +330,7 @@ const csdown = {
                     title: data.title,
                     desc: timestampToTime(data.created_at, 1) + '\t\t\t' + parseInt(data.video_length / 60) + ':' + parseInt(data.video_length % 60),
                     img: data.horizontal_cover + image,
-                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=1',
+                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=6299321',
                     col_type: 'movie_2',
                     extra: {
                         id: data.id,
@@ -356,7 +358,7 @@ const csdown = {
                     title: data.title,
                     desc: timestampToTime(data.created_at, 0) + '\t\t\t' + parseInt(data.video_length / 60) + ':' + parseInt(data.video_length % 60),
                     img: data.horizontal_cover + image,
-                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=1',
+                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=6299321',
                     col_type: 'pic_2_card',
                     extra: {
                         id: data.id,
@@ -396,7 +398,7 @@ const csdown = {
                     title: data.title,
                     desc: timestampToTime(data.created_at, 1) + '\t\t\t' + parseInt(data.video_length / 60) + ':' + parseInt(data.video_length % 60),
                     img: data.horizontal_cover + image,
-                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=1',
+                    url: getItem('host') + '/api/v2/video/player.m3u8?vid=' + data.id + '&uid=6299321',
                     col_type: 'movie_2',
                     extra: {
                         id: data.id,
