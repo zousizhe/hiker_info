@@ -1,6 +1,6 @@
 const tudou = {
     d: [],
-    version: '202503242',
+    version: '20250515',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -219,7 +219,7 @@ const tudou = {
         } catch (e) {
             log(e.message)
             if (getMyVar('a') == '') {
-                let host = 'https://apip.as7zy5.cn';
+                let host = 'https://apip.skolx.cn';
                 setItem('host', host);
                 let account_url = getItem('host') + '/api/in/autoAccount3';
                 let account_body = 'client_id=&c_code=&p_code=&a_code=&a_ins=';
