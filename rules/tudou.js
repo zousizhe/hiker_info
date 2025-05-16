@@ -1,6 +1,8 @@
 const tudou = {
     d: [],
-    version: '20250515',
+    title: '土豆视频',
+    author: '流苏',
+    version: '20250516',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -38,16 +40,24 @@ const tudou = {
             });
         }
         var 分类 = getMyVar('c1', '1');
-        if (分类 == 1) {
-            tudou.video()
-        } else if (分类 == 2) {
-            tudou.zonglan()
-        } else if (分类 == 3) {
-            tudou.mini()
-        } else if (分类 == 4) {
-            tudou.nvyou()
-        } else if (分类 == 5) {
-            tudou.news()
+        if (MY_RULE.author == csdown.author || MY_NAME == '嗅觉浏览器') {
+            if (分类 == 1) {
+                tudou.video()
+            } else if (分类 == 2) {
+                tudou.zonglan()
+            } else if (分类 == 3) {
+                tudou.mini()
+            } else if (分类 == 4) {
+                tudou.nvyou()
+            } else if (分类 == 5) {
+                tudou.news()
+            }
+        } else {
+            d.push({
+                title: '请勿修改作者名',
+                url: 'hiker://empty',
+                col_type: 'text_center_1'
+            })
         }
         setResult(d)
     },
@@ -219,7 +229,10 @@ const tudou = {
         } catch (e) {
             log(e.message)
             if (getMyVar('a') == '') {
-                let host = 'https://apip.skolx.cn';
+                //let host = 'https://apip.skolx.cn';
+                let html = fetch('https://ilitqxipof4.icu/h5')
+                let host_ = pdfa(html, 'body&&script').map(c => pdfh(c, 'script&&src'))[0].split('.')[1];
+                let host = `https://apip.${host_}.cn`
                 setItem('host', host);
                 let account_url = getItem('host') + '/api/in/autoAccount3';
                 let account_body = 'client_id=&c_code=&p_code=&a_code=&a_ins=';
