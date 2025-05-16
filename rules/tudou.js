@@ -2,7 +2,7 @@ const tudou = {
     d: [],
     title: '土豆视频',
     author: '流苏',
-    version: '20250516',
+    version: '202505161',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
@@ -40,7 +40,7 @@ const tudou = {
             });
         }
         var 分类 = getMyVar('c1', '1');
-        if (MY_RULE.author == csdown.author || MY_NAME == '嗅觉浏览器') {
+        if (MY_RULE.author == tudou.author || MY_NAME == '嗅觉浏览器') {
             if (分类 == 1) {
                 tudou.video()
             } else if (分类 == 2) {
