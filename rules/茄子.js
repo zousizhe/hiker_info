@@ -1,135 +1,139 @@
 const csdown = {
     d: [],
     author: '流苏',
-    version: '20250516',
+    version: '20250520',
     rely: (data) => {
         return data.match(/\{([\s\S]*)\}/)[0].replace(/\{([\s\S]*)\}/, '$1')
     },
     home: () => {
         var d = csdown.d;
-        if (getItem('up' + csdown.version, '') == '') {
-            confirm({
-                title: '更新内容',
-                content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复，自行更换为线路1\n13.修改漫画二级页面\n14.修复猫咪系列模块无法打开的问题\n15.百科增加模块，自行长按更新数据\n16.修复蘑菇视频播放(最好挂代理)\n17.修复搜索中部分模块图片不显示的问题\n18.修复图标及部分线路\n19.待续',
-                confirm: $.toString((version) => {
-                    setItem('up' + version, '1')
-                }, csdown.version),
-                cancel: $.toString(() => {})
-            })
-        }
-        if (MY_PAGE == 1) {
-            d.push({   
-                title: "搜索 ",
-                url: $.toString(() => {
-                    putMyVar('keyword', input)
-                    return "hiker://empty?page=fypage&kw=" + input + '@rule=js:$.require("csdown").search()'
-                }),
-                   desc: "请输入搜索关键词",
-                   col_type: "input",
-                extra: {
-                    defaultValue: getMyVar('keyword', ''),
-                }
-            })
-        };
-        var list = [{
-            title: '首页&综合',
-            id: '1&2&3&4&5',
-            img: 'https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/127.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/137.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/113.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/114.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/122.svg'
-        }];
-        if (MY_PAGE == 1) {
-            function strong(d, c) {
-                return '‘‘’’<strong><font color=#' + (c || '000000') + '>' + d + '</font></strong>';
+        if (!csdown.𝐜𝐨𝐝𝐞_) {
+            csdown.𝐜𝐨𝐝𝐞_1();
+        } else {
+            if (getItem('up' + csdown.version, '') == '') {
+                confirm({
+                    title: '更新内容',
+                    content: '版本号：' + csdown.version + '\n1.修复一些bug\n2.增加一些bug\n3.增加长按更新茄子服务器数据\n4.增加长按更换线路(没事别换)\n5.搜索界面增加搜索框\n6.增加av百科\n7.首页增加部分模块\n8.综合部分二级页面修改\n9.看不了的是服务器问题，与我无关\n10.修复瓜太郎二级页面空白问题\n11.临时修复部分模块，更新后自行重生或更换线路9\n12.茄子服务器已修复，自行更换为线路1\n13.修改漫画二级页面\n14.修复猫咪系列模块无法打开的问题\n15.百科增加模块，自行长按更新数据\n16.修复蘑菇视频播放(最好挂代理)\n17.修复搜索中部分模块图片不显示的问题\n18.修复图标及部分线路\n19.待续',
+                    confirm: $.toString((version) => {
+                        setItem('up' + version, '1')
+                    }, csdown.version),
+                    cancel: $.toString(() => {})
+                })
             }
-            var index_n = list[0].id.split('&')[0];
-            list.forEach(data => {
-                var title = data.title.split('&');
-                var id = data.id.split('&');
-                var img = data.img.split('&');
-                title.forEach((title, index) => {
-                    d.push({
-                        title: (getMyVar('首页', index_n) == id[index] ? strong(title, 'FF6699') : title),
-                        img: img[index],
-                        url: $('#noLoading#').lazyRule((title, id) => {
-                            putMyVar('首页', id);
-                            refreshPage(false);
-                            return 'hiker://empty';
-                        }, title, id[index]),
-                        col_type: 'icon_2_round',
-                        extra: {
-                            longClick: [{
-                                title: '更新数据',
-                                js: $.toString(() => {
-                                    eval($.require('csdown').rely($.require('csdown').aes));
-                                    let shouye = qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/shouye'));
-                                    let data = qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/zonghe'));
-                                    let search = fetch('http://007.22s.lol/searchconfig/vipapi/vipconfig.txt');
-                                    // var kuozhan=qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/heikeji'));
-                                    // var yuming=qzDecrypt(request('http://01.xka3a.top/encrypt/api.php?path=yuming/yuming'));
-                                    //  var gonggao=qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/qz'));
-                                    let avbk = fetch('https://app.caoppht.com/avbk132.php');
-                                    //茄子数据
-                                    //http://api.xka1.top/qiezi/shouye.txt
-                                    //http://api.xka1.top/qiezi/zonghe.txt
-                                    //小可爱数据
-                                    //http://api.xka1.top/xiaokeai/shouye.txt
-                                    //http://api.xka1.top/xiaokeai/zonghe.txt
-                                    setItem('shouye', shouye);
-                                    setItem('data', data);
-                                    setItem('search', search);
-                                    setItem('avbk', avbk);
-                                    // setItem('yuming',yuming);
-                                    //setItem('kuozhan',kuozhan);
-                                    // setItem('gonggao',gonggao);
-                                    refreshPage(false);
-                                    toast('数据已更新');
-                                    log('数据已更新');
-                                    return 'hiker://empty';
-                                })
-                            }, {
-                                title: '更换线路',
-                                js: $.toString(() => {
-                                    var url = 'https://api1.yilushunfeng.top|http://rfEXkbyp.yilushunfeng.top|http://rfEXkbyp.changfapiaopiao.top|https://api.changfapiaopiao.top|http://api1.yilushunfeng.top|http://api.changfapiaopiao.top|http://api1.apijiekou.top/api|http://api.phpjiekou.top|http://api.22s.lol/api'.split('|');
-                                    var option = '线路1&线路2&线路3&线路4&线路5&线路6&线路7&线路8&线路9'.split('&')
-                                    var Line = {
-                                        title: '切换线路',
-                                        options: option,
-                                        col: 2,
-                                        js: $.toString((url) => {
-                                            var index = input.match(/\d+/)[0];
-                                            var host = url[index - 1];
-                                            setItem('host', host);
-                                            refreshPage(false);
-                                            toast('线路已更换');
-                                        }, url)
-                                    }
-                                    return 'select://' + JSON.stringify(Line);
-                                })
-                            }]
-                        }
+            if (MY_PAGE == 1) {
+                d.push({   
+                    title: "搜索 ",
+                    url: $.toString(() => {
+                        putMyVar('keyword', input)
+                        return "hiker://empty?page=fypage&kw=" + input + '@rule=js:$.require("csdown").search()'
+                    }),
+                       desc: "请输入搜索关键词",
+                       col_type: "input",
+                    extra: {
+                        defaultValue: getMyVar('keyword', ''),
+                    }
+                })
+            };
+            var list = [{
+                title: '首页&综合',
+                id: '1&2&3&4&5',
+                img: 'https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/127.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/137.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/113.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/114.svg&https://ghproxy.net/https://raw.githubusercontent.com/ls125781003/tubiao/main/movie/122.svg'
+            }];
+            if (MY_PAGE == 1) {
+                function strong(d, c) {
+                    return '‘‘’’<strong><font color=#' + (c || '000000') + '>' + d + '</font></strong>';
+                }
+                var index_n = list[0].id.split('&')[0];
+                list.forEach(data => {
+                    var title = data.title.split('&');
+                    var id = data.id.split('&');
+                    var img = data.img.split('&');
+                    title.forEach((title, index) => {
+                        d.push({
+                            title: (getMyVar('首页', index_n) == id[index] ? strong(title, 'FF6699') : title),
+                            img: img[index],
+                            url: $('#noLoading#').lazyRule((title, id) => {
+                                putMyVar('首页', id);
+                                refreshPage(false);
+                                return 'hiker://empty';
+                            }, title, id[index]),
+                            col_type: 'icon_2_round',
+                            extra: {
+                                longClick: [{
+                                    title: '更新数据',
+                                    js: $.toString(() => {
+                                        eval($.require('csdown').rely($.require('csdown').aes));
+                                        let shouye = qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/shouye'));
+                                        let data = qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/zonghe'));
+                                        let search = fetch('http://007.22s.lol/searchconfig/vipapi/vipconfig.txt');
+                                        // var kuozhan=qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/heikeji'));
+                                        // var yuming=qzDecrypt(request('http://01.xka3a.top/encrypt/api.php?path=yuming/yuming'));
+                                        //  var gonggao=qzDecrypt(request('http://007.22s.lol/encrypt/api.php?path=qiezi/qz'));
+                                        let avbk = fetch('https://app.caoppht.com/avbk132.php');
+                                        //茄子数据
+                                        //http://api.xka1.top/qiezi/shouye.txt
+                                        //http://api.xka1.top/qiezi/zonghe.txt
+                                        //小可爱数据
+                                        //http://api.xka1.top/xiaokeai/shouye.txt
+                                        //http://api.xka1.top/xiaokeai/zonghe.txt
+                                        setItem('shouye', shouye);
+                                        setItem('data', data);
+                                        setItem('search', search);
+                                        setItem('avbk', avbk);
+                                        // setItem('yuming',yuming);
+                                        //setItem('kuozhan',kuozhan);
+                                        // setItem('gonggao',gonggao);
+                                        refreshPage(false);
+                                        toast('数据已更新');
+                                        log('数据已更新');
+                                        return 'hiker://empty';
+                                    })
+                                }, {
+                                    title: '更换线路',
+                                    js: $.toString(() => {
+                                        var url = 'https://api1.yilushunfeng.top|http://rfEXkbyp.yilushunfeng.top|http://rfEXkbyp.changfapiaopiao.top|https://api.changfapiaopiao.top|http://api1.yilushunfeng.top|http://api.changfapiaopiao.top|http://api1.apijiekou.top/api|http://api.phpjiekou.top|http://api.22s.lol/api'.split('|');
+                                        var option = '线路1&线路2&线路3&线路4&线路5&线路6&线路7&线路8&线路9'.split('&')
+                                        var Line = {
+                                            title: '切换线路',
+                                            options: option,
+                                            col: 2,
+                                            js: $.toString((url) => {
+                                                var index = input.match(/\d+/)[0];
+                                                var host = url[index - 1];
+                                                setItem('host', host);
+                                                refreshPage(false);
+                                                toast('线路已更换');
+                                            }, url)
+                                        }
+                                        return 'select://' + JSON.stringify(Line);
+                                    })
+                                }]
+                            }
+                        })
                     })
+                    d.push({
+                        col_type: 'blank_block',
+                    });
                 })
                 d.push({
-                    col_type: 'blank_block',
+                    col_type: 'big_blank_block',
                 });
-            })
-            d.push({
-                col_type: 'big_blank_block',
-            });
-        }
-        //setPreResult(d)
-        var 分类 = getMyVar('首页', '1');
-        if (MY_RULE.author == csdown.author || MY_NAME == '嗅觉浏览器') {
-            if (分类 == 1) {
-                csdown.video()
-            } else if (分类 == 2) {
-                csdown.zonghe()
             }
-        } else {
-            d.push({
-                title: '请勿修改作者名称',
-                url: 'hiker://empty',
-                col_type: 'text_center_1',
-            })
+            //setPreResult(d)
+            var 分类 = getMyVar('首页', '1');
+            if (MY_RULE.author == csdown.author || MY_NAME == '嗅觉浏览器') {
+                if (分类 == 1) {
+                    csdown.video()
+                } else if (分类 == 2) {
+                    csdown.zonghe()
+                }
+            } else {
+                d.push({
+                    title: '请勿修改作者名称',
+                    url: 'hiker://empty',
+                    col_type: 'text_center_1',
+                })
+            }
         }
         setResult(d)
     },
@@ -1299,6 +1303,14 @@ const csdown = {
             if (ts == 1) return Y + M + D + h + m + s;
         }
 
+        //骏马图片解密，反base64
+        var junmaimage = $('').image(() => {
+            const CryptoUtil = $.require("hiker://assets/crypto-java.js");
+            let textData = CryptoUtil.Data.parseInputStream(input);
+            let base64Text = textData.toString().split('').reverse().join('');
+            let encrypted0 = CryptoUtil.Data.parseBase64(base64Text, _base64.NO_WRAP);
+            return encrypted0.toInputStream();
+        })
 
         function pageAdd(page) {
             if (getMyVar("page")) {
@@ -1477,6 +1489,17 @@ const csdown = {
                                     log(e.toString())
                                 }
                             }, host, data.id),
+                            col_type: 'movie_2'
+                        })
+                    }
+                } else if (wz == 'junma') {
+                    if (data.image) {
+                        var img = data.image;
+                        d.push({
+                            title: data.title,
+                            desc: (data.created_date == null ? '' : data.created_date) + '  ' + (data.date == null ? '' : data.date) + '  ' + (data.duration == null ? '' : data.duration),
+                            img: data.image + junmaimage,
+                            url: host + '?id=' + data.id + vod,
                             col_type: 'movie_2'
                         })
                     }
@@ -2156,6 +2179,30 @@ const csdown = {
             toast('看不了')
         }
         setResult(d)
+    },
+    𝐜𝐨𝐝𝐞_: getItem('𝐜𝐨𝐝𝐞_', ''),
+    𝐜𝐨𝐝𝐞_1: () => {
+        var d = csdown.d;
+        d.push({   
+            title: "确认",
+            url: $.toString(() => {
+                putMyVar('mima_', input)
+                let code = base64Decode(hexToBase64('6f306f6f306f6f6f306f6f6f6f'))
+                if (input == code) {
+                    setItem('𝐜𝐨𝐝𝐞_', '1')
+                    toast('密码正确')
+                    refreshPage(false)
+                } else {
+                    toast('密码错误')
+                }
+                return 'hiker://empty'
+            }),
+               desc: "请输入密码",
+               col_type: "input",
+            extra: {
+                defaultValue: getMyVar('mima_', ''),
+            }
+        })
     },
     xiaoshuoerji: () => {
         var d = csdown.d;
