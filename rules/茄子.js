@@ -5,7 +5,7 @@ const csdown = {
     home: () => {
         var d = csdown.d;
         d.push({
-            title:'已停止更新，各位也不用去问密码了',
+            title:'已跑路，请自行删除，各位也不用去问密码了',
             url:'hiker://empty',
             col_type:'text_center_1'
         })
